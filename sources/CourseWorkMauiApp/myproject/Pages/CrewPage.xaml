@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:courseworkmauiapp="clr-namespace:CourseWorkMauiApp"
+             x:Class="CourseWorkMauiApp.CrewPage"
+             Title="Список команд"
+             BackgroundColor="LightGray">
+    <ContentPage.BindingContext>
+        <courseworkmauiapp:CrewViewModel/>
+    </ContentPage.BindingContext>
+
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="BackgroundColor" Value="LightBlue" />
+
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="BackgroundColor" Value="LightBlue" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="WidthRequest" Value="300"/>
+            <Setter Property="HeightRequest" Value="80"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        
+    </ContentPage.Resources>
+        <StackLayout>
+        <ListView x:Name="crewListView"
+                   ItemsSource="{Binding Crews}"
+                   SeparatorVisibility="None"
+                   HasUnevenRows="True"
+                   BackgroundColor="LightGray"
+                   SelectedItem="{Binding SelectedCrew, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.ColumnDefinitions> 
+                                <ColumnDefinition Width="*"/>   
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>  
+                            </Grid.RowDefinitions>
+
+                            <StackLayout Grid.Row="0" Grid.Column="0" Spacing="5" BackgroundColor="LightBlue">  
+                                <Label Text="{Binding NamePilotOne, StringFormat='Пилот 1: {0}'}" FontSize="20"/>
+                                <Label Text="{Binding NamePilotTwo, StringFormat='Пилот 2: {0}'}" FontSize="20"/>
+                                <Label Text="{Binding NameAttendantOne, StringFormat='Проводник 1: {0}'}" FontSize="20"/>
+                                <Label Text="{Binding NameAttendantTwo, StringFormat='Проводник 2: {0}'}" FontSize="20"/>
+                            </StackLayout> 
+
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>    
+        </ListView>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+            <Button Text="Назад" Clicked="BackPage" />
+            <Button Text="Добавить Экипаж" Clicked="OpenAddCrewPage" />
+            <Button Text="Изменить Экипаж" Clicked="OpenSetCrewPage" Command="{Binding SetCommand}"/>
+            <Button Text="Удалить" 
+                    Command="{Binding RemoveCommand}"
+                    Clicked="ClearDeleteObject"
+                    CommandParameter="{Binding Source={x:Reference Name=crewListView}, Path=SelectedItem}" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

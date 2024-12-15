@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--Страница готова-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:courseworkmauiapp="clr-namespace:CourseWorkMauiApp"
+             x:DataType="courseworkmauiapp:MainPage"
+             x:Class="CourseWorkMauiApp.MainPage"
+             Background="LightGray">
+    <!--начальная страница с действиями-->
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="BackgroundColor" Value="LightBlue" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="WidthRequest" Value="300"/>
+            <Setter Property="HeightRequest" Value="80"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center"
+            HorizontalOptions="Center">
+            <Label Text="Добро пожаловать в систему по управлению авиакомпании" HorizontalOptions="Center" TextColor="Black" LineBreakMode="CharacterWrap" FontAttributes="Italic" FontSize="Title"/>
+            <Label Text="Выберите действие" HorizontalOptions="Center" LineBreakMode="CharacterWrap" FontAttributes="Italic" FontSize="Subtitle" TextColor="Black"/>
+            
+            <Image
+            Source="https://cdnstatic.rg.ru/uploads/images/156/67/67/Depositphotos_41367457_m-2015.jpg"
+            HeightRequest="400"
+            HorizontalOptions="Center"
+            Aspect="AspectFit"/>
+        
+            
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Button x:Name="Avialinersbutton" Clicked="OpenAvialinersPage" Text="Авиалайнеры"/>
+                <Button x:Name="Routebutton" Clicked="OpenRoutePage" Text="Маршруты"/>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Button x:Name="Crewbutton" Clicked="OpenCrewPage" Text="Экипажи"/>
+                <Button x:Name="Departurebutton" Clicked="OpenADeparturePage" Text="Вылеты"/>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Button x:Name="Buyticketbutton" Clicked="OpenBuyticketPage" Text="Купить билет"/>
+                <Button x:Name="Historybutton" Clicked="OpenHistoryPage" Text="История полетов"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Button Clicked="SaveData" Text="Сохранить"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
+

@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:courseworkmauiapp="clr-namespace:CourseWorkMauiApp"
+             x:Class="CourseWorkMauiApp.SetAirlinerPage"
+             Title="SetAirlinerPage" Background="LightGray">
+    <ContentPage.BindingContext>
+        <courseworkmauiapp:AirViewModel/>
+    </ContentPage.BindingContext>
+   <ContentPage.Resources>
+        
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="BackgroundColor" Value="LightGray" />
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="0,0,0,10" />
+            <Setter Property="HorizontalOptions" Value="Start" /> 
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="#3498DB" />
+            <Setter Property="CornerRadius" Value="10" /> 
+            <Setter Property="Margin" Value="0,10,0,0" />
+            <Setter Property="WidthRequest" Value="250"/>
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style TargetType="Picker">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        </Style>
+        
+    </ContentPage.Resources>
+    
+
+    <ScrollView >
+        <Grid Padding="20" RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Тип:" Grid.Row="0" Grid.Column="0" />
+            <Picker x:Name="TypePicker" Grid.Row="0" Grid.Column="1" SelectedItem="{Binding New_Airliner.Type}">
+                <Picker.Items>
+                    <x:String>Грузовой</x:String>
+                    <x:String>Пассажирский</x:String>
+                    <x:String>Частный</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label Text="Номер:" Grid.Row="1" Grid.Column="0" />
+            <Entry x:Name="NumberEntry" Grid.Row="1" Grid.Column="1" Text="{Binding New_Airliner.NumberLiner}" />
+
+            <Label Text="Изображение:" Grid.Row="2" Grid.Column="0" />
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="ImageChoose" Grid.Row="0" Grid.Column="1" Text="Добавить фото" Command="{Binding ChoosePhotoCommand}" HorizontalOptions="End" />
+                <Image x:Name="SelectedImage" Grid.Row="0" Grid.Column="0" Source="{Binding ImageLiner}" Aspect="AspectFit" HeightRequest="180" WidthRequest="180"/>
+
+            </Grid>
+
+            <Label Text="Дата технического осмотра:" Grid.Row="3" Grid.Column="0" />
+            <Grid Grid.Row="3" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <DatePicker x:Name="DateTechnicalInspectionPicker" Grid.Row="0" Grid.Column="0" Date="{Binding New_Airliner.DateTechnicalInspection}" MinimumDate="01.01.2000" MaximumDate="11.11.2028" 
+                            TextColor="Black" BackgroundColor="White"/>
+            </Grid>
+            <HorizontalStackLayout Grid.Row="4" Grid.Column="1">
+                <Button Text="Назад" Clicked="BackPage" Command="{Binding CancelCommandSecond}"/>
+                <Button Text="Сохранить" Clicked="SaveAirliner"  HorizontalOptions="End" Command="{Binding SetCommandSecond}"/>
+            </HorizontalStackLayout>
+            
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:courseworkmauiapp="clr-namespace:CourseWorkMauiApp"
+             x:Class="CourseWorkMauiApp.AddTicketPage"
+             Title="AddTicketPage"
+             Background="LightGray">
+    <ContentPage.BindingContext>
+        <courseworkmauiapp:BuyTicketViewModel/>
+    </ContentPage.BindingContext>
+  
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="0,0,0,10" />
+            <Setter Property="HorizontalOptions" Value="Start" /> 
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="#3498DB" />
+            <Setter Property="CornerRadius" Value="10" /> 
+            <Setter Property="Margin" Value="0,10,0,0" />
+            <Setter Property="WidthRequest" Value="250"/>
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style TargetType="Picker">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="LightGray" />
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="BackgroundColor" Value="LightGray" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        </Style>
+        
+    </ContentPage.Resources>
+    
+     <ScrollView>
+    <StackLayout Spacing="20" Padding="20">  <!-- Added spacing and padding -->
+
+        <Frame BackgroundColor="White" CornerRadius="10" Padding="15">  <!-- Passenger Info Frame -->
+            <StackLayout>
+                <Label Text="ФИО пассажира" />
+                <Entry Text="{Binding Name}" TextChanged="TextToChanged"/>
+
+                <Label Text="Серия паспорта" />
+                <Entry Text="{Binding Series}" TextChanged="OnEntryTextChanged"/>
+
+                <Label Text="Номер паспорта" />
+                <Entry Text="{Binding Number}" TextChanged="OnEntryTextChanged"/>
+
+                <Label Text="Кем выдан паспорт" />
+                <Entry Text="{Binding NameGiven}" TextChanged="TextToChanged"/>
+
+                <Label Text="Дата выдачи паспорта" />
+                <DatePicker Date="{Binding DateGiven}" />
+            </StackLayout>
+        </Frame>
+
+        <Frame BackgroundColor="White" CornerRadius="10" Padding="15">  <!-- Ticket Info Frame -->
+            <StackLayout>
+                <Label Text="Цена билета" />
+                <Entry Text="{Binding PriceTicket}" TextChanged="OnEntryTextChanged"/>
+
+                <Label Text="Дата покупки билета" />
+                <DatePicker Date="{Binding DateBuyTicket}" />
+
+                <Label Text="Номер места" />
+                <Entry Text="{Binding NumberPlace}" />
+
+                <Label Text="Класс места" />
+                <Entry Text="{Binding ClassPlace}" />
+            </StackLayout>
+        </Frame>
+
+        <Frame BackgroundColor="White" CornerRadius="10" Padding="15">  <!-- Cashier Info Frame -->
+            <StackLayout>
+                <Label Text="ФИО кассира" />
+                <Entry Text="{Binding Cashier}" TextChanged="TextToChanged"/>
+
+                <Label Text="Номер кассы" />
+                <Entry Text="{Binding NubmerOficce}" />
+            </StackLayout>
+        </Frame>
+
+<Frame BackgroundColor="White" CornerRadius="10" Padding="15">
+    <ListView x:Name="departureListView"
+              ItemsSource="{Binding Departures_List}"
+              SeparatorVisibility="None"
+              HasUnevenRows="True"
+              BackgroundColor="White"
+              HeightRequest="500"
+              SelectedItem="{Binding Departure}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Padding="10">
+
+
+                                
+                    <Frame CornerRadius="10" Padding="25" BackgroundColor="LightGray" MinimumHeightRequest="150">
+                        <StackLayout>
+                            <Label Text="-Вылет-" FontSize="20" />
+                            <Label Text="{Binding Route.Code, StringFormat='Шифр маршрута: {0}'}" FontSize="18" />
+                            <Label Text="{Binding Route.Type, StringFormat='Тип самолета: {0}'}" FontSize="18" />
+                            <Label Text="{Binding Route.PlaceOfDeparture, StringFormat='Место вылета: {0}'}" FontSize="18" />
+                            <Label Text="{Binding Route.TimeOfDeparture, StringFormat='Время вылета: {0:t}'}" FontSize="18" />
+                            <Label Text="{Binding Route.LandingPlace, StringFormat='Место прилета: {0}'}" FontSize="18" />
+                            <Label Text="{Binding Route.TimeOfLanding, StringFormat='Время прилета: {0:t}'}" FontSize="18" />
+                            <Label Text="{Binding DayOfDeparture, StringFormat='День вылета: {0:d}'}" FontSize="18" />
+                        </StackLayout>
+                    </Frame>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</Frame>
+
+
+    <Button Text="Назад" Clicked="BackPage" />   
+    <Button Text="Сохранить" Command="{Binding AddCommand}" TextColor="White" HorizontalOptions="Center"/>
+        
+
+    </StackLayout>
+</ScrollView>
+     
+</ContentPage>

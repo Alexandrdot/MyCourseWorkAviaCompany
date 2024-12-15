@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:courseworkmauiapp="clr-namespace:CourseWorkMauiApp" 
+             x:Class="CourseWorkMauiApp.AviaPage"
+             Background="LightGray"
+             Title="Список самолетов"
+             >
+    <ContentPage.BindingContext>
+        <courseworkmauiapp:AirViewModel/>
+    </ContentPage.BindingContext>
+
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="BackgroundColor" Value="LightBlue" />
+
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="BackgroundColor" Value="LightBlue" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="WidthRequest" Value="300"/>
+            <Setter Property="HeightRequest" Value="80"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        
+    </ContentPage.Resources>
+        <StackLayout>
+        <ListView x:Name="airlinersListView"
+                   ItemsSource="{Binding Airliners}"
+                   SeparatorVisibility="None"
+                   HasUnevenRows="True"
+                   BackgroundColor="LightGray"
+                   SelectedItem="{Binding SelectedAirliner, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>  <!-- Fix  -->
+                                <ColumnDefinition Width="*"/>   
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/> 
+                            </Grid.RowDefinitions>
+
+                            <Image Grid.Row="0" Grid.Column="0" Source="{Binding ImageLiner}" Aspect="AspectFill" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" MaximumHeightRequest="90" MaximumWidthRequest="90"/>
+
+                            <StackLayout Grid.Row="0" Grid.Column="1" Spacing="5" BackgroundColor="LightBlue">  <!-- Use StackLayout  -->
+                                <Label Text="{Binding Type, StringFormat='Тип самолета: {0}'}" FontSize="20"/>
+                                <Label Text="{Binding NumberLiner, StringFormat='Бортовой номер: {0}'}" FontSize="20"/>
+                                <Label Text="{Binding DateTechnicalInspection, StringFormat='Дата последнего т.о: {0:d}'}" FontSize="20"/>
+                            </StackLayout> 
+
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>    
+        </ListView>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+            <Button Text="Назад" Clicked="BackPage" />
+            <Button Text="Добавить самолет" Clicked="OpenAddAirlinerPage" />
+            <Button Text="Изменить самолет" Clicked="OpenSetAirlinerPage" Command="{Binding SetCommand}"/>
+            <Button Text="Удалить" 
+                    Command="{Binding RemoveCommand}"
+                    CommandParameter="{Binding Source={x:Reference Name=airlinersListView}, Path=SelectedItem}"
+                    Clicked="ClearDeleteObject"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:courseworkmauiapp="clr-namespace:CourseWorkMauiApp"
+             x:Class="CourseWorkMauiApp.AddRoutePage"
+             Title="AddRoutePage"
+             Background="LightGray">
+    <ContentPage.BindingContext>
+        <courseworkmauiapp:RouteViewModel/>
+    </ContentPage.BindingContext>
+  
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="BackgroundColor" Value="LightGray" />
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="0,0,0,10" />
+            <Setter Property="HorizontalOptions" Value="Start" /> 
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="#3498DB" />
+            <Setter Property="CornerRadius" Value="10" /> 
+            <Setter Property="Margin" Value="0,10,0,0" />
+            <Setter Property="WidthRequest" Value="250"/>
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style TargetType="Picker">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        </Style>
+        
+    </ContentPage.Resources>
+    
+     <ScrollView>
+    <StackLayout Spacing="10" Padding="20">
+        <Frame CornerRadius="10" Padding="15" BackgroundColor="LightGray">
+            <StackLayout Spacing="5">
+                <Label Text="Тип:" FontSize="16" FontAttributes="Bold" />
+                <Picker x:Name="TypePicker" SelectedItem="{Binding Type, Mode=OneWayToSource}">
+                    <Picker.Items>
+                        <x:String>Грузовой</x:String>
+                        <x:String>Пассажирский</x:String>
+                        <x:String>Частный</x:String>
+                    </Picker.Items>
+                </Picker>
+            </StackLayout>
+        </Frame>
+
+        <Frame CornerRadius="10" Padding="15" BackgroundColor="LightGray">
+            <StackLayout Spacing="5">
+                <Label Text="Шифр:" FontSize="16" FontAttributes="Bold" />
+                <Entry Text="{Binding Code, Mode=OneWayToSource}" />
+            </StackLayout>
+        </Frame>
+
+
+        <Frame CornerRadius="10" Padding="15" BackgroundColor="LightGray">
+            <StackLayout Spacing="5">
+                <Label Text="Место вылета:" FontSize="16" FontAttributes="Bold" />
+                <Entry Text="{Binding PlaceOfDeparture, Mode=OneWayToSource}" TextChanged="TextToChanged"/>
+                <Label Text="Время вылета:" FontSize="16" FontAttributes="Bold" />
+                <TimePicker Time="{Binding TimeOfDeparture, Mode=OneWayToSource}" />
+            </StackLayout>
+        </Frame>
+
+
+        <Frame CornerRadius="10" Padding="15" BackgroundColor="LightGray">
+            <!--<StackLayout Spacing="5">
+                 <Label Text="Дни вылета (пн, вт, ...):" FontSize="16" FontAttributes="Bold" />
+                <Entry Placeholder="Выберите дни (например, Пн, Вт, Ср, ...)" Text="{Binding DateOfWeek, Mode=OneWayToSource}" TextChanged="TextToChanged"/>
+            </StackLayout>-->
+            <!--<CollectionView
+             ItemsSource="{Binding ListOfDays}"
+             SelectionMode="Multiple"
+             SelectedItems="{Binding ListOfSelectedDays, Mode=TwoWay}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>   
+                         <Label Text="{Binding .}"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>-->
+                <StackLayout>
+                    <Picker x:Name="DayPicker" SelectedItem="{Binding SelectedDay}">
+                        <Picker.Items>
+                            <x:String>Пн</x:String>
+                            <x:String>Вт</x:String>
+                            <x:String>Ср</x:String>
+                            <x:String>Чт</x:String>
+                            <x:String>Пт</x:String>
+                            <x:String>Сб</x:String>
+                            <x:String>Вс</x:String>
+                        </Picker.Items>
+                    </Picker>
+                    <Button Text="Добавить день" Command="{Binding AddDay}"/>
+                    <Label Text="{Binding DateOfWeek}"/>
+                </StackLayout>
+        </Frame>
+
+
+        <Frame CornerRadius="10" Padding="15" BackgroundColor="LightGray">
+            <StackLayout Spacing="5">
+                <Label Text="Место прилета:" FontSize="16" FontAttributes="Bold" />
+                <Entry Text="{Binding LandingPlace, Mode=OneWayToSource}" TextChanged="TextToChanged"/>
+                <Label Text="Время прилета:" FontSize="16" FontAttributes="Bold" />
+                <TimePicker Time="{Binding TimeOfLanding, Mode=OneWayToSource}" />
+            </StackLayout>
+        </Frame>
+
+
+        <Frame CornerRadius="10" Padding="15" BackgroundColor="LightGray">
+            <StackLayout Spacing="5">
+                <Label Text="Места промежуточных посадок:" FontSize="16" FontAttributes="Bold" />
+                <Entry Text="{Binding IntermediateLandingSites, Mode=OneWayToSource}" TextChanged="TextToChanged"/>
+            </StackLayout>
+        </Frame>
+
+        <Button Text="Назад" Clicked="BackPage" />
+        <Button Text="Сохранить" Command="{Binding AddCommand}"  BackgroundColor="CornflowerBlue" TextColor="White"  CornerRadius="5" Padding="10, 5"/>
+    </StackLayout>
+</ScrollView>
+     
+</ContentPage>

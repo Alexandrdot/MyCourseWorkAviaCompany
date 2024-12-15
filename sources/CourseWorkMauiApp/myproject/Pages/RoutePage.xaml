@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:courseworkmauiapp="clr-namespace:CourseWorkMauiApp"
+             x:Class="CourseWorkMauiApp.RoutePage"
+             Title="RoutePage"
+             Background="LightGray">
+    <ContentPage.BindingContext>
+        <courseworkmauiapp:RouteViewModel/>
+    </ContentPage.BindingContext>
+
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="BackgroundColor" Value="LightBlue" />
+
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="BackgroundColor" Value="LightBlue" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="WidthRequest" Value="300"/>
+            <Setter Property="HeightRequest" Value="80"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        
+    </ContentPage.Resources>
+    <StackLayout>
+        
+        <ListView x:Name="routeListView"
+                   ItemsSource="{Binding Routes}"
+                   SeparatorVisibility="None"
+                   HasUnevenRows="True"
+                   BackgroundColor="LightGray"
+                   SelectedItem="{Binding SelectedRoute, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+
+                        <Grid Padding="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>   
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/> 
+                            </Grid.RowDefinitions>
+                            <StackLayout Grid.Row="0" Grid.Column="0" Spacing="5" BackgroundColor="LightBlue">  <!-- Use StackLayout  -->
+                                <Label Text="{Binding Code, StringFormat='Шифр маршрута: {0}'}" FontSize="20"/>
+                                <Label Text="{Binding Type, StringFormat='тип самолета: {0}'}" FontSize="20"/>
+                                <Label Text="{Binding PlaceOfDeparture, StringFormat='место вылета: {0}'}" FontSize="20"/>
+                                <Label Text="{Binding DateOfWeek, StringFormat='Дни вылета: {0}'}"/>
+                                <HorizontalStackLayout>
+                                    <Label Text="{ Binding TimeOfDeparture, StringFormat='Время вылета: {0}'}" FontSize="20"/>
+                                </HorizontalStackLayout>
+                                
+                                <Label Text="{Binding LandingPlace, StringFormat='место прилета: {0}'}" FontSize="20"/>
+                                <HorizontalStackLayout>
+                                    <Label Text="{ Binding TimeOfLanding, StringFormat='Время прилета: {0}'}" FontSize="20"/>
+                                </HorizontalStackLayout>
+                                
+                                <Label Text="{Binding IntermediateLandingSites, StringFormat='промежуточные посадки: {0}'}" FontSize="20"/>
+                            </StackLayout> 
+
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>    
+        </ListView>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+            <Button Text="Назад" Clicked="BackPage" />
+            <Button Text="Добавить путь" Clicked="OpenAddRoutePage" />
+            <Button Text="Изменить путь" Clicked="OpenSetRoutePage" Command="{Binding SetCommand}"/>
+            <Button Text="Удалить" 
+                    Command="{Binding RemoveCommand}"
+                    Clicked="ClearDeleteObject"
+                    CommandParameter="{Binding Source={x:Reference Name=routeListView}, Path=SelectedItem}" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

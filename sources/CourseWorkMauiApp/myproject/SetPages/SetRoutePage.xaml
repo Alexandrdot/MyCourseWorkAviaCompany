@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CourseWorkMauiApp.SetRoutePage"
+             xmlns:courseworkmauiapp="clr-namespace:CourseWorkMauiApp"
+             Title="SetRoutePage"
+             BackgroundColor="LightGray">
+    <ContentPage.BindingContext>
+        <courseworkmauiapp:RouteViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="BackgroundColor" Value="LightGray" />
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="0,0,0,10" />
+            <Setter Property="HorizontalOptions" Value="Start" /> 
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="#3498DB" />
+            <Setter Property="CornerRadius" Value="10" /> 
+            <Setter Property="Margin" Value="0,10,0,0" />
+            <Setter Property="WidthRequest" Value="250"/>
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style TargetType="Picker">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        </Style>
+        
+    </ContentPage.Resources>
+    
+    <ScrollView>
+    <StackLayout>
+    <Grid Padding="20" RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Frame CornerRadius="5" Padding="10" BackgroundColor="LightGray" Grid.Row="0" Grid.ColumnSpan="2">
+            <StackLayout>
+                <Label Text="Тип:" FontSize="16" FontAttributes="Bold" />
+                <Picker x:Name="TypePicker" SelectedItem="{Binding New_Route.Type}">
+                    <Picker.Items>
+                        <x:String>Грузовой</x:String>
+                        <x:String>Пассажирский</x:String>
+                        <x:String>Частный</x:String>
+                    </Picker.Items>
+                </Picker>
+            </StackLayout>
+        </Frame>
+
+        <Frame CornerRadius="5" Padding="10" BackgroundColor="LightGray" Grid.Row="1" Grid.ColumnSpan="2">
+            <StackLayout>
+                <Label Text="Шифр:" FontSize="16" FontAttributes="Bold" />
+                <Entry x:Name="codeEntry" Text="{Binding New_Route.Code}" />
+            </StackLayout>
+        </Frame>
+
+        <Frame CornerRadius="5" Padding="10" BackgroundColor="LightGray" Grid.Row="2" Grid.ColumnSpan="2">
+            <StackLayout>
+                <Label Text="Место вылета:" FontSize="16" FontAttributes="Bold"/>
+                <Entry x:Name="departureEntry" Text="{Binding New_Route.PlaceOfDeparture}" TextChanged="TextToChanged"/>
+            </StackLayout>
+        </Frame>
+
+        <Frame CornerRadius="5" Padding="10" BackgroundColor="LightGray" Grid.Row="3" Grid.ColumnSpan="2">
+            <StackLayout>
+                <Label Text="Время вылета:" FontSize="16" FontAttributes="Bold" />
+                <TimePicker Time="{Binding New_Route.TimeOfDeparture}" />
+            </StackLayout>
+        </Frame>
+
+        <Frame CornerRadius="5" Padding="10" BackgroundColor="LightGray" Grid.Row="4" Grid.ColumnSpan="2">
+            <StackLayout>
+                <Label Text="Дни вылета (пн, вт, ...)" FontSize="16" FontAttributes="Bold" />
+                <Entry Text="{Binding New_Route.DateOfWeek}" TextChanged="TextToChanged"/>
+            </StackLayout>
+        </Frame>
+
+        <Frame CornerRadius="5" Padding="10" BackgroundColor="LightGray" Grid.Row="5" Grid.ColumnSpan="2">
+            <StackLayout>
+                <Label Text="Место прилета:" FontSize="16" FontAttributes="Bold" />
+                <Entry x:Name="arrivalEntry" Text="{Binding New_Route.LandingPlace}" TextChanged="TextToChanged"/>
+            </StackLayout>
+        </Frame>
+
+        <Frame CornerRadius="5" Padding="10" BackgroundColor="LightGray" Grid.Row="6" Grid.ColumnSpan="2">
+            <StackLayout>
+                <Label Text="Время прилета:" FontSize="16" FontAttributes="Bold" />
+                <TimePicker Time="{Binding New_Route.TimeOfLanding}" />
+            </StackLayout>
+        </Frame>
+
+        <Frame CornerRadius="5" Padding="10" BackgroundColor="LightGray" Grid.Row="7" Grid.ColumnSpan="2">
+            <StackLayout>
+                <Label Text="Места промежуточных посадок:" FontSize="16" FontAttributes="Bold" />
+                <Entry x:Name="intermediateLandingsEntry" Text="{Binding New_Route.IntermediateLandingSites}" TextChanged="TextToChanged"/>
+            </StackLayout>
+        </Frame>
+        
+        
+        
+    </Grid>
+        <StackLayout>
+            <Button Text="Назад" Clicked="BackPage" Command="{Binding CancelCommandSecond}"/>
+            <Button Text="Сохранить"  Command="{Binding SetCommandSecond}" Padding="10,5" />
+        </StackLayout>
+    </StackLayout>
+</ScrollView>
+</ContentPage>

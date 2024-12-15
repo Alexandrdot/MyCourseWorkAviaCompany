@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CourseWorkMauiApp.AddDeparturePage"
+             Title="AddDeparturePage"
+             xmlns:courseworkmauiapp="clr-namespace:CourseWorkMauiApp"
+             BackgroundColor="LightGray">
+    <ContentPage.BindingContext>
+        <courseworkmauiapp:DepartureViewModel/>
+    </ContentPage.BindingContext>
+  
+    <ContentPage.Resources>
+        
+
+        <Style TargetType="Button">
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="#3498DB" />
+            <Setter Property="CornerRadius" Value="10" /> 
+            <Setter Property="Margin" Value="0,10,0,0" />
+            <Setter Property="WidthRequest" Value="250"/>
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+       <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="BackgroundColor" Value="LightBlue" />
+
+        </Style>
+        
+    </ContentPage.Resources>
+    <StackLayout>
+    <Label Text="Выберите данные для вылета!" FontSize="30" VerticalOptions="Center"
+            HorizontalOptions="Center" BackgroundColor="LightGray"/>
+    <Label Text="При отсутствии необходимых, вернитесь на главную страницу и введите необходимую информацию!" FontSize="25" VerticalOptions="Center"
+            HorizontalOptions="Center" BackgroundColor="LightGray"/>
+
+    <Label Text="Самолет:" FontSize="20" BackgroundColor="LightGray"/>
+    <ListView x:Name="airliners_ListView"
+              ItemsSource="{Binding Airliner_List}"
+              SeparatorVisibility="None"
+                HasUnevenRows="True"
+                BackgroundColor="DarkGray"
+                HeightRequest="200"
+                WidthRequest="800"
+                HorizontalOptions="Center"
+                SelectedItem="{Binding Airliner}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Grid Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Row="0" Grid.Column="0"
+                               Source="{Binding ImageLiner}"
+                               Aspect="AspectFill"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand"
+                               MaximumHeightRequest="90"
+                               MaximumWidthRequest="90"/>
+                        <StackLayout Grid.Row="0" Grid.Column="1" Spacing="5" BackgroundColor="LightBlue" Padding="5">
+                            <Label Text="{Binding Type, StringFormat='Тип самолета: {0}'}" FontSize="18" FontAttributes="Bold"/>
+                            <Label Text="{Binding NumberLiner, StringFormat='Бортовой номер: {0}'}" FontSize="16"/>
+                            <Label Text="{Binding DateTechnicalInspection, StringFormat='Дата последнего т.о.: {0:d}'}" FontSize="16"/>
+                        </StackLayout>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+    <BoxView HeightRequest="1" BackgroundColor="Gray" Margin="1,0,1,0" />
+    <Label Text="Экипаж:" FontSize="20" BackgroundColor="LightGray"/>
+    <ListView x:Name="crew_ListView"
+              ItemsSource="{Binding Crew_List}"
+              SeparatorVisibility="None"
+          HasUnevenRows="True"
+          BackgroundColor="DarkGray"
+          HeightRequest="200"
+          WidthRequest="800"
+          HorizontalOptions="Center"
+          SelectedItem="{Binding Crew}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Margin="5" Padding="10" Spacing="5" BackgroundColor="LightBlue" >
+                        <Label Text="{Binding NamePilotOne, StringFormat='Пилот 1: {0}'}" FontSize="18" FontAttributes="Bold"/>
+                        <Label Text="{Binding NamePilotTwo, StringFormat='Пилот 2: {0}'}" FontSize="16"/>
+                        <Label Text="{Binding NameAttendantOne, StringFormat='Проводник 1: {0}'}" FontSize="16"/>
+                        <Label Text="{Binding NameAttendantTwo, StringFormat='Проводник 2: {0}'}" FontSize="16"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+    <BoxView HeightRequest="1" BackgroundColor="Gray" Margin="1,0,1,0" />
+    <Label Text="Маршрут:" FontSize="20" BackgroundColor="LightGray"/>
+    <ListView x:Name="route_ListView"
+              ItemsSource="{Binding Route_List}"
+              SeparatorVisibility="None"
+          HasUnevenRows="True"
+          BackgroundColor="DarkGray"
+          HeightRequest="200"
+          WidthRequest="800"
+          HorizontalOptions="Center"
+          SelectedItem="{Binding Route}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Margin="5" Padding="10" Spacing="5" BackgroundColor="LightBlue">
+                        <Label Text="{Binding Code, StringFormat='Шифр маршрута: {0}'}" FontSize="18" FontAttributes="Bold"/>
+                        <Label Text="{Binding Type, StringFormat='Тип самолета: {0}'}" FontSize="16"/>
+                        <Label Text="{Binding PlaceOfDeparture, StringFormat='Место вылета: {0}'}" FontSize="16"/>
+                        <Label Text="{Binding TimeOfDeparture, StringFormat='Время вылета: {0:T}'}" FontSize="16"/>
+                        <Label Text="{Binding DateOfWeek, StringFormat='Дни вылета (пн, вт, ...): {0}'}" FontSize="16"/>
+                        <Label Text="{Binding LandingPlace, StringFormat='Место прилета: {0}'}" FontSize="16"/>
+                        <Label Text="{Binding TimeOfLanding, StringFormat='Время прилета: {0:T}'}" FontSize="16"/>
+                        <Label Text="{Binding IntermediateLandingSites, StringFormat='Промежуточные посадки: {0}'}" FontSize="16"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+    <HorizontalStackLayout HorizontalOptions="Center" Margin="5" Padding="10">
+        <Label Text="День вылета: "/>
+        <DatePicker x:Name="DateTechnicalInspectionPicker" Grid.Row="0" Grid.Column="0" Date="{Binding DayOfDeparture, Mode=OneWayToSource}" MinimumDate="01.01.2000" MaximumDate="11.11.2026" 
+                        TextColor="Black" BackgroundColor="LightBlue"/>
+    </HorizontalStackLayout>
+    <Button Text="Назад" Clicked="BackPage" />
+    <Button Text="Сохранить" Command="{Binding AddCommand}"/>
+</StackLayout>
+</ContentPage>

@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:courseworkmauiapp="clr-namespace:CourseWorkMauiApp" 
+             x:Class="CourseWorkMauiApp.DeparturePage"
+             Background="LightGray"
+             Title="Вылеты"
+             > 
+    <ContentPage.BindingContext>
+        <courseworkmauiapp:DepartureViewModel/>
+    </ContentPage.BindingContext>
+
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="BackgroundColor" Value="LightBlue" />
+
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="BackgroundColor" Value="LightBlue" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="WidthRequest" Value="300"/>
+            <Setter Property="HeightRequest" Value="80"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        
+    </ContentPage.Resources>
+        <StackLayout>
+       <ListView x:Name="departureListView"
+          ItemsSource="{Binding Departures}"
+          SeparatorVisibility="None"
+          HasUnevenRows="True"
+          BackgroundColor="LightGray"
+          SelectedItem="{Binding SelectedDeparture, Mode=TwoWay}">
+    <ListView.ItemTemplate>
+        <DataTemplate>
+            <ViewCell>
+                <Grid ColumnSpacing="10" Padding="10">  <!-- Added padding to the Grid -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Frame CornerRadius="10" Padding="15" BackgroundColor="LightGray" Grid.Column="0">
+
+                        <StackLayout Spacing="5">
+                            <Label Text="{Binding DayOfDeparture, StringFormat='День вылета {0:d}'}" FontSize="25"/>
+                            <Label Text="---Самолет---" FontSize="20" />
+                            <Image Source="{Binding Airliner.ImageLiner}" Aspect="AspectFill" MaximumHeightRequest="80" MaximumWidthRequest="80"  />
+                            <Label Text="{Binding Airliner.Type, StringFormat='Тип самолета: {0}'}" FontSize="18" />
+                            <Label Text="{Binding Airliner.NumberLiner, StringFormat='Бортовой номер: {0}'}" FontSize="18" />
+                            <Label Text="{Binding Airliner.DateTechnicalInspection, StringFormat='Дата последнего т.о.: {0:d}'}" FontSize="18" />
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame CornerRadius="10" Padding="15" BackgroundColor="LightGray" Grid.Column="1">
+                        <StackLayout Spacing="5">
+                            <Label Text="---Экипаж---" FontSize="20" />
+                            <Label Text="{Binding Crew.NamePilotOne, StringFormat='Пилот 1: {0}'}" FontSize="18" />
+                            <Label Text="{Binding Crew.NamePilotTwo, StringFormat='Пилот 2: {0}'}" FontSize="18" />
+                            <Label Text="{Binding Crew.NameAttendantOne, StringFormat='Проводник 1: {0}'}" FontSize="18" />
+                            <Label Text="{Binding Crew.NameAttendantTwo, StringFormat='Проводник 2: {0}'}" FontSize="18" />
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame CornerRadius="10" Padding="15" BackgroundColor="LightGray" Grid.Column="2">
+                        <StackLayout Spacing="5">
+                            <Label Text="---Маршрут---" FontSize="20" />
+                            <Label Text="{Binding Route.Code, StringFormat='Шифр маршрута: {0}'}" FontSize="18" />
+                            <Label Text="{Binding Route.Type, StringFormat='Тип самолета: {0}'}" FontSize="18" />
+                            <Label Text="{Binding Route.DateOfWeek, StringFormat='Дни вылета: {0}'}" FontSize="18" />
+                            <Label Text="{Binding Route.PlaceOfDeparture, StringFormat='Место вылета: {0}'}" FontSize="18" />
+                            <Label Text="{Binding Route.TimeOfDeparture, StringFormat='Время вылета: {0:t}'}" FontSize="18" />
+                            <Label Text="{Binding Route.LandingPlace, StringFormat='Место прилета: {0}'}" FontSize="18" />
+                            <Label Text="{Binding Route.TimeOfLanding, StringFormat='Время прилета: {0:t}'}" FontSize="18" />
+                            <Label Text="{Binding Route.IntermediateLandingSites, StringFormat='Промежуточные посадки: {0}'}" FontSize="18" />
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+            </ViewCell>
+        </DataTemplate>
+    </ListView.ItemTemplate>
+</ListView>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+            <Button Text="Назад" Clicked="BackPage" />
+            <Button Text="Добавить вылет" Clicked="OpenAddDeparturePage" />
+            <Button Text="Изменить вылет" Clicked="OpenSetDeparturePage" Command="{Binding SetCommand}"/> 
+            <Button Text="Удалить" 
+                    Command="{Binding RemoveCommand}"
+                    Clicked="ClearDeleteObject"
+                    CommandParameter="{Binding Source={x:Reference Name=departureListView}, Path=SelectedItem}" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
