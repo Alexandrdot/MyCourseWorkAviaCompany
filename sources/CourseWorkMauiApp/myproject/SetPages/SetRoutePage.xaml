@@ -92,7 +92,7 @@
         <Frame CornerRadius="5" Padding="10" BackgroundColor="LightGray" Grid.Row="3" Grid.ColumnSpan="2">
             <StackLayout>
                 <Label Text="Время вылета:" FontSize="16" FontAttributes="Bold" />
-                <TimePicker Time="{Binding New_Route.TimeOfDeparture}" />
+                <TimePicker Time="{Binding New_Route.TimeOfDeparture}" Format="HH:mm"/>
             </StackLayout>
         </Frame>
 
@@ -113,7 +113,7 @@
         <Frame CornerRadius="5" Padding="10" BackgroundColor="LightGray" Grid.Row="6" Grid.ColumnSpan="2">
             <StackLayout>
                 <Label Text="Время прилета:" FontSize="16" FontAttributes="Bold" />
-                <TimePicker Time="{Binding New_Route.TimeOfLanding}" />
+                <TimePicker Time="{Binding New_Route.TimeOfLanding}" Format="HH:mm"/>
             </StackLayout>
         </Frame>
 

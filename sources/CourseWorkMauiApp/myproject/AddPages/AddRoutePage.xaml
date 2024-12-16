@@ -72,7 +72,7 @@
                 <Label Text="Место вылета:" FontSize="16" FontAttributes="Bold" />
                 <Entry Text="{Binding PlaceOfDeparture, Mode=OneWayToSource}" TextChanged="TextToChanged"/>
                 <Label Text="Время вылета:" FontSize="16" FontAttributes="Bold" />
-                <TimePicker Time="{Binding TimeOfDeparture, Mode=OneWayToSource}" />
+                <TimePicker Time="{Binding TimeOfDeparture, Mode=OneWayToSource}" Format="HH:mm"/>
             </StackLayout>
         </Frame>
 
@@ -115,7 +115,7 @@
                 <Label Text="Место прилета:" FontSize="16" FontAttributes="Bold" />
                 <Entry Text="{Binding LandingPlace, Mode=OneWayToSource}" TextChanged="TextToChanged"/>
                 <Label Text="Время прилета:" FontSize="16" FontAttributes="Bold" />
-                <TimePicker Time="{Binding TimeOfLanding, Mode=OneWayToSource}" />
+                <TimePicker Time="{Binding TimeOfLanding, Mode=OneWayToSource}" Format="HH:mm"/>
             </StackLayout>
         </Frame>
 
